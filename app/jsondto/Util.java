@@ -54,8 +54,7 @@ public abstract class Util {
 	}
 
 	/**
-	 * Renders the given JSON-representable Model object as JSON to the given
-	 * request's body.
+	 * Renders the given JSON-representable Model object as a JSON string.
 	 * 
 	 * Also accepts a List of such objects, in which case a JSON list is
 	 * prepared for output.
@@ -64,7 +63,7 @@ public abstract class Util {
 	 * 
 	 * @throws Exception
 	 */
-	public static void renderDTO(Object dtos, Response response) throws Exception {
+	public static String getDTOsAsString(Object dtos) {
 
 		Gson gson = new GsonBuilder().create();
 		String jsonString;
@@ -91,6 +90,22 @@ public abstract class Util {
 			throw new IllegalArgumentException("Expecting (a list of) JSONDTORepresentable instances, " + dtos.getClass() + " encountered");
 
 		}
+
+		return jsonString;
+
+	}
+
+	/**
+	 * Helper for rendering the given JSON-representable Models to the given
+	 * request.
+	 * 
+	 * @see getDTOAsString()
+	 * 
+	 * @throws Exception
+	 */
+	public static void renderDTO(Object dtos, Response response) throws Exception {
+
+		String jsonString = getDTOsAsString(dtos);
 
 		response.contentType = CONTENT_TYPE;
 		response.out.write(jsonString.getBytes(CHARSET));
