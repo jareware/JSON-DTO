@@ -1,5 +1,7 @@
 package jsondto;
 
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Type;
 import java.util.Map;
@@ -35,8 +37,9 @@ public class JSONDTOPlugin extends PlayPlugin {
 	 * Returns a boolean value indicating if we should react to this request or
 	 * leave it be.
 	 * 
-	 * @param req
-	 * @return Whether the request matches conditions
+	 * In short, we are only interested in requests that may contain a JSON-body
+	 * (for our purist purposes, this doesn't include GET's and DELETE's).
+	 * 
 	 */
 	private static boolean isMatchingRequest(Http.Request req) {
 
@@ -53,7 +56,36 @@ public class JSONDTOPlugin extends PlayPlugin {
 	@Override
 	public void beforeInvocation() {
 
-		Logger.debug("JSONDTOPlugin: beforeInvocation");
+		Logger.debug("JSON-DTO: beforeInvocation()");
+
+		Http.Request request = Http.Request.current();
+
+		if (!isMatchingRequest(request))
+			return;
+
+		Logger.info("JSON-DTO: Reading in request body");
+
+		try {
+
+			String tempBody = Util.readStream(request.body);
+
+			request.body = new ByteArrayInputStream("".getBytes(Util.CHARSET));
+
+			if (tempBody.length() > 0) {
+
+				Logger.debug("JSON-DTO: Request body stored");
+
+				body = tempBody;
+
+			}
+
+		} catch (IOException e) {
+
+			Logger.error("JSON-DTO: Could not read request body");
+
+			e.printStackTrace();
+
+		}
 
 	}
 
@@ -65,9 +97,9 @@ public class JSONDTOPlugin extends PlayPlugin {
 	@Override
 	public Object bind(String name, Class clazz, Type type, Annotation[] annotations, Map<String, String[]> params) {
 
-		Logger.debug("JSONDTOPlugin: bind");
-
 		// FIXME
+
+		return null;
 
 	}
 
