@@ -10,6 +10,9 @@ import play.Logger;
 import play.PlayPlugin;
 import play.mvc.Http;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
+
 /**
  * This plugin implements most of the JSON-DTO module.
  * 
@@ -97,9 +100,29 @@ public class JSONDTOPlugin extends PlayPlugin {
 	@Override
 	public Object bind(String name, Class clazz, Type type, Annotation[] annotations, Map<String, String[]> params) {
 
-		// FIXME
+		Logger.debug("JSON-DTO: bind()");
 
-		return null;
+		if (!isMatchingRequest(Http.Request.current()))
+			return null; // only react to interesting requests
+
+		if (!JSONDTO.class.isAssignableFrom(clazz))
+			return null; // only react to classes marked as a DTO
+
+		try {
+
+			Logger.info("JSON-DTO: Binding JSON request body to controller parameter '" + name + "'");
+
+			return new Gson().fromJson(body, clazz);
+
+		} catch (JsonSyntaxException e) {
+
+			Logger.error("JSON-DTO: Invalid JSON provided for controller parameter '" + name + "'");
+
+			e.printStackTrace();
+
+			return null;
+
+		}
 
 	}
 
