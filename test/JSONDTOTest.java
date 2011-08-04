@@ -82,4 +82,41 @@ public class JSONDTOTest {
 
 	}
 
+	@Test
+	public void testNullSerialization() {
+
+		assertEquals("null", Util.getDTOsAsString(null));
+
+	}
+
+	@Test
+	public void testEmptyListSerialization() {
+
+		assertEquals("[]", Util.getDTOsAsString(new ArrayList()));
+
+	}
+
+	@Test
+	public void testEmptyObjectSerialization() {
+
+		class EmptyModel implements JSONDTORepresentable<EmptyModel.DTO> {
+
+			class DTO implements JSONDTO {
+			}
+
+			public void merge(DTO dto) {
+			}
+
+			public DTO toDTO() {
+				return new DTO();
+			}
+
+		}
+
+		assertEquals("{}", Util.getDTOsAsString(new EmptyModel()));
+
+	}
+
+	// TODO: Test for Util.readStream()
+
 }

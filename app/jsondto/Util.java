@@ -68,7 +68,11 @@ public abstract class Util {
 		Gson gson = new GsonBuilder().create();
 		String jsonString;
 
-		if (dtos instanceof JSONDTORepresentable) {
+		if (dtos == null) {
+
+			jsonString = "null";
+
+		} else if (dtos instanceof JSONDTORepresentable) {
 
 			jsonString = gson.toJson(((JSONDTORepresentable) dtos).toDTO());
 
