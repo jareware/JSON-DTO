@@ -1,5 +1,7 @@
 import static org.junit.Assert.assertEquals;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -117,6 +119,24 @@ public class JSONDTOTest {
 
 	}
 
-	// TODO: Test for Util.readStream()
+	@Test
+	public void testReadingInStreams() throws IOException {
+
+		InputStream is = new InputStream() {
+
+			private int byteCount = 3;
+
+			public synchronized int read() throws IOException {
+				if (byteCount-- <= 0)
+					return -1;
+				else
+					return 65;
+			}
+
+		};
+
+		assertEquals("AAA", Util.readStream(is));
+
+	}
 
 }

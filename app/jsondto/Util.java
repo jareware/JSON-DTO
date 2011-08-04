@@ -49,7 +49,9 @@ public abstract class Util {
 
 		}
 
-		return stringBuilder.toString();
+		String result = stringBuilder.toString();
+
+		return result.substring(0, result.length() - linefeed.length());
 
 	}
 
