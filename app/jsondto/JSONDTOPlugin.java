@@ -19,7 +19,7 @@ import com.google.gson.JsonSyntaxException;
  * It reads in the body content of a matching request, and binds that content to
  * a DTO-object expected by a controller.
  * 
- * @author Jarno Rantanen <jarno@jrw.fi>
+ * @author Jarno Rantanen <jarno.rantanen@futurice.com>
  */
 public class JSONDTOPlugin extends PlayPlugin {
 

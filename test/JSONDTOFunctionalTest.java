@@ -6,7 +6,7 @@ import play.test.FunctionalTest;
 /**
  * Functional tests for the JSON-DTO module.
  * 
- * @author Jarno Rantanen <jarno@jrw.fi>
+ * @author Jarno Rantanen <jarno.rantanen@futurice.com>
  */
 public class JSONDTOFunctionalTest extends FunctionalTest {
 

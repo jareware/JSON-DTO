@@ -15,7 +15,7 @@ import play.test.UnitTest;
 /**
  * Unit tests for the utilities used by the JSON-DTO module.
  * 
- * @author Jarno Rantanen <jarno@jrw.fi>
+ * @author Jarno Rantanen <jarno.rantanen@futurice.com>
  */
 public class JSONDTOUnitTest extends UnitTest {
 

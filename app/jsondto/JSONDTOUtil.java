@@ -15,7 +15,7 @@ import com.google.gson.GsonBuilder;
 /**
  * Utility methods for the JSON-DTO module.
  * 
- * @author Jarno Rantanen <jarno@jrw.fi>
+ * @author Jarno Rantanen <jarno.rantanen@futurice.com>
  */
 public abstract class JSONDTOUtil {
 

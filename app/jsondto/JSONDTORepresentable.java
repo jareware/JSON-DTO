@@ -5,7 +5,7 @@ package jsondto;
  * a JSON-DTO, and vice-versa (that is, able to set their state according to a
  * given DTO).
  * 
- * @author Jarno Rantanen <jarno@jrw.fi>
+ * @author Jarno Rantanen <jarno.rantanen@futurice.com>
  */
 public interface JSONDTORepresentable<DTO extends JSONDTO> {
 

@@ -14,7 +14,7 @@ import play.mvc.Controller;
 /**
  * Test controller for exercising the actual DTO-binding of the JSONDTOPlugin.
  * 
- * @author Jarno Rantanen <jarno@jrw.fi>
+ * @author Jarno Rantanen <jarno.rantanen@futurice.com>
  */
 public class JSONDTOTestController extends Controller {
 
