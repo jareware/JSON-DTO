@@ -1,5 +1,6 @@
 import static org.junit.Assert.assertEquals;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -122,20 +123,9 @@ public class JSONDTOTest {
 	@Test
 	public void testReadingInStreams() throws IOException {
 
-		InputStream is = new InputStream() {
+		InputStream is = new ByteArrayInputStream("ABC".getBytes(Util.CHARSET));
 
-			private int byteCount = 3;
-
-			public synchronized int read() throws IOException {
-				if (byteCount-- <= 0)
-					return -1;
-				else
-					return 65;
-			}
-
-		};
-
-		assertEquals("AAA", Util.readStream(is));
+		assertEquals("ABC", Util.readStream(is));
 
 	}
 
