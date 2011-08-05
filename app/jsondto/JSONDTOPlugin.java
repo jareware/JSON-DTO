@@ -53,7 +53,14 @@ public class JSONDTOPlugin extends PlayPlugin {
 	/**
 	 * Reads in the request body of a matching request.
 	 * 
-	 * TODO: Note about exhausting the input stream
+	 * It should be noted that this operation will in fact exhaust the the input
+	 * stream, since it doesn't implement a reset(). This means that any other
+	 * plugins/controllers that try to read the stream after this method will
+	 * see it being empty. This is generally not a problem, however, since if a
+	 * Request isMatchingRequest(), it shouldn't be needed for anything else
+	 * than the JSON-DTO binding that we're doing.
+	 * 
+	 * TODO: Replace the stream with identical content..?
 	 * 
 	 */
 	@Override

@@ -62,6 +62,7 @@ public abstract class Util {
 	 * prepared for output.
 	 * 
 	 * TODO: Allow passing a JSONDTO directly as well..?
+	 * TODO: Add support for Collections..?
 	 * 
 	 * @throws Exception
 	 */
