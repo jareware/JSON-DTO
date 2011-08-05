@@ -7,6 +7,8 @@ import java.util.List;
 import jsondto.JSONDTO;
 import jsondto.JSONDTORepresentable;
 import jsondto.Util;
+import play.Play;
+import play.mvc.Before;
 import play.mvc.Controller;
 
 /**
@@ -15,6 +17,16 @@ import play.mvc.Controller;
  * @author Jarno Rantanen <jarno@jrw.fi>
  */
 public class JSONDTOTestController extends Controller {
+
+	private static final String ID = "test";
+
+	@Before
+	static void setUp() throws Exception {
+
+		if (!Play.id.equals(ID))
+			throw new Exception("This controller is only accessible within the '" + ID + "' framework ID");
+
+	}
 
 	/**
 	 * This is a test class standing in for an actual Model object.
