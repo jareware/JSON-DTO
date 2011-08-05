@@ -39,7 +39,53 @@ Please find some concrete examples below.
 Examples
 --------
 
-...
+Let's say we're building an API for maintaining a list of notes.  Our model object looks like:
+
+	@Entity
+	public class Note extends Model {
+		
+		public String title = "";
+		
+		@ManyToMany
+		public List<Tag> tags = new ArrayList<Tag>();
+	
+	}
+
+We want to give the Note's JSON representation the aforementioned immutable `url` field,
+and also render out the tags list as just a list of the names of the tags,
+not the complete objects.  Here we go:
+
+	@Entity
+	public class Note extends Model implements JSONDTORepresentable<Note.DTO> {
+	
+		public String title = "";
+		
+		@ManyToMany
+		public List<Tag> tags = new ArrayList<Tag>();
+		
+		public class DTO implements JSONDTO {
+			public String title;
+			public List<String> tags;
+			public String url;
+		}
+	
+		@Override
+		public void merge(DTO dto) {
+			// TODO
+		}
+	
+		@Override
+		public DTO toDTO() {
+			// TODO
+		}
+		
+	}
+
+By implementing `JSONDTORepresentable` the model object signals that it can represent itself as a DTO if need be.
+We define that representation to be `Note.DTO`, which is just a POJO without any inheritance or annotations magic.
+It contains the fields we want to expose within the JSON representation of the Note model.
+We implement it as an inline class to keep these closely related classes together,
+though you can just as well define the implementation of `JSONDTO` as a completely separate class.
 
 Running the tests
 -----------------
