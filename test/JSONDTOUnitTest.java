@@ -6,7 +6,7 @@ import java.util.List;
 
 import jsondto.JSONDTO;
 import jsondto.JSONDTORepresentable;
-import jsondto.Util;
+import jsondto.JSONDTOUtil;
 
 import org.junit.Test;
 
@@ -51,7 +51,7 @@ public class JSONDTOUnitTest extends UnitTest {
 		Note note = new Note();
 		note.title = "foo";
 
-		assertEquals("{\"note_title\":\"foo\"}", Util.getDTOsAsString(note));
+		assertEquals("{\"note_title\":\"foo\"}", JSONDTOUtil.getDTOsAsString(note));
 
 	}
 
@@ -68,14 +68,14 @@ public class JSONDTOUnitTest extends UnitTest {
 		notes.add(note1);
 		notes.add(note2);
 
-		assertEquals("[{\"note_title\":\"foo\"},{\"note_title\":\"bar\"}]", Util.getDTOsAsString(notes));
+		assertEquals("[{\"note_title\":\"foo\"},{\"note_title\":\"bar\"}]", JSONDTOUtil.getDTOsAsString(notes));
 
 	}
 
 	@Test(expected = IllegalArgumentException.class)
 	public void testIllegalArgumentForSerialization() {
 
-		Util.getDTOsAsString(new Object());
+		JSONDTOUtil.getDTOsAsString(new Object());
 
 	}
 
@@ -85,21 +85,21 @@ public class JSONDTOUnitTest extends UnitTest {
 		List list = new ArrayList();
 		list.add(new Object());
 
-		Util.getDTOsAsString(list);
+		JSONDTOUtil.getDTOsAsString(list);
 
 	}
 
 	@Test
 	public void testNullSerialization() {
 
-		assertEquals("null", Util.getDTOsAsString(null));
+		assertEquals("null", JSONDTOUtil.getDTOsAsString(null));
 
 	}
 
 	@Test
 	public void testEmptyListSerialization() {
 
-		assertEquals("[]", Util.getDTOsAsString(new ArrayList()));
+		assertEquals("[]", JSONDTOUtil.getDTOsAsString(new ArrayList()));
 
 	}
 
@@ -122,25 +122,25 @@ public class JSONDTOUnitTest extends UnitTest {
 
 		}
 
-		assertEquals("{}", Util.getDTOsAsString(new EmptyModel()));
+		assertEquals("{}", JSONDTOUtil.getDTOsAsString(new EmptyModel()));
 
 	}
 
 	@Test
 	public void testReadingInStreams() throws IOException {
 
-		InputStream is = new ByteArrayInputStream("ABC".getBytes(Util.CHARSET));
+		InputStream is = new ByteArrayInputStream("ABC".getBytes(JSONDTOUtil.CHARSET));
 
-		assertEquals("ABC", Util.readStream(is));
+		assertEquals("ABC", JSONDTOUtil.readStream(is));
 
 	}
 
 	@Test
 	public void testReadingEmptyStream() throws IOException {
 
-		InputStream is = new ByteArrayInputStream("".getBytes(Util.CHARSET));
+		InputStream is = new ByteArrayInputStream("".getBytes(JSONDTOUtil.CHARSET));
 
-		assertEquals("", Util.readStream(is));
+		assertEquals("", JSONDTOUtil.readStream(is));
 
 	}
 
