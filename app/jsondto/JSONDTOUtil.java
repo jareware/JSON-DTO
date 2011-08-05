@@ -17,7 +17,7 @@ import com.google.gson.GsonBuilder;
  * 
  * @author Jarno Rantanen <jarno@jrw.fi>
  */
-public abstract class Util {
+public abstract class JSONDTOUtil {
 
 	public static final String CHARSET = "UTF-8";
 	public static final String CONTENT_TYPE = "application/json; charset=utf-8";

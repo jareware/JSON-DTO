@@ -77,9 +77,9 @@ public class JSONDTOPlugin extends PlayPlugin {
 
 		try {
 
-			String tempBody = Util.readStream(request.body);
+			String tempBody = JSONDTOUtil.readStream(request.body);
 
-			request.body = new ByteArrayInputStream("".getBytes(Util.CHARSET));
+			request.body = new ByteArrayInputStream("".getBytes(JSONDTOUtil.CHARSET));
 
 			if (tempBody.length() > 0) {
 

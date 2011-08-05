@@ -6,7 +6,7 @@ import java.util.List;
 
 import jsondto.JSONDTO;
 import jsondto.JSONDTORepresentable;
-import jsondto.Util;
+import jsondto.JSONDTOUtil;
 import play.Play;
 import play.mvc.Before;
 import play.mvc.Controller;
@@ -60,7 +60,7 @@ public class JSONDTOTestController extends Controller {
 
 	public static void getNote() throws Exception {
 
-		Util.renderDTO(new Note("My note"), response);
+		JSONDTOUtil.renderDTO(new Note("My note"), response);
 
 	}
 
@@ -70,7 +70,7 @@ public class JSONDTOTestController extends Controller {
 		list.add(new Note("foo"));
 		list.add(new Note("bar"));
 
-		Util.renderDTO(list, response);
+		JSONDTOUtil.renderDTO(list, response);
 
 	}
 
@@ -82,19 +82,19 @@ public class JSONDTOTestController extends Controller {
 
 	public static void postWithBody() throws IOException {
 
-		renderText("body=" + Util.readStream(request.body));
+		renderText("body=" + JSONDTOUtil.readStream(request.body));
 
 	}
 
 	public static void postNote(Note.DTO note) throws IOException {
 
-		renderText("title=" + note.tit + ";body=" + Util.readStream(request.body));
+		renderText("title=" + note.tit + ";body=" + JSONDTOUtil.readStream(request.body));
 
 	}
 
 	public static void postNoteModel(Note note) throws IOException {
 
-		renderText("note=" + note + ";body=" + Util.readStream(request.body));
+		renderText("note=" + note + ";body=" + JSONDTOUtil.readStream(request.body));
 
 	}
 
