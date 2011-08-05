@@ -1,5 +1,3 @@
-import static org.junit.Assert.assertEquals;
-
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -12,14 +10,20 @@ import jsondto.Util;
 
 import org.junit.Test;
 
+import play.test.UnitTest;
+
 /**
- * Test cases for the JSON-DTO module.
+ * Unit tests for the utilities used by the JSON-DTO module.
  * 
  * @author Jarno Rantanen <jarno@jrw.fi>
  */
-public class JSONDTOTest {
+public class JSONDTOUnitTest extends UnitTest {
 
-	public class Note implements JSONDTORepresentable<Note.DTO> {
+	/**
+	 * This is a test class standing in for an actual Model object.
+	 * 
+	 */
+	private class Note implements JSONDTORepresentable<Note.DTO> {
 
 		private String title;
 
@@ -107,9 +111,11 @@ public class JSONDTOTest {
 			class DTO implements JSONDTO {
 			}
 
+			@Override
 			public void merge(DTO dto) {
 			}
 
+			@Override
 			public DTO toDTO() {
 				return new DTO();
 			}
