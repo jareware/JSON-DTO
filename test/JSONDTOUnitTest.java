@@ -135,4 +135,13 @@ public class JSONDTOUnitTest extends UnitTest {
 
 	}
 
+	@Test
+	public void testReadingEmptyStream() throws IOException {
+
+		InputStream is = new ByteArrayInputStream("".getBytes(Util.CHARSET));
+
+		assertEquals("", Util.readStream(is));
+
+	}
+
 }

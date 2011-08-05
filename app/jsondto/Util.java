@@ -51,6 +51,9 @@ public abstract class Util {
 
 		String result = stringBuilder.toString();
 
+		if (!result.endsWith(linefeed))
+			return result;
+
 		return result.substring(0, result.length() - linefeed.length());
 
 	}
@@ -62,6 +65,7 @@ public abstract class Util {
 	 * prepared for output.
 	 * 
 	 * TODO: Allow passing a JSONDTO directly as well..?
+	 * 
 	 * TODO: Add support for Collections..?
 	 * 
 	 * @throws Exception
