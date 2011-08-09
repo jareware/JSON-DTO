@@ -46,7 +46,7 @@ public class JSONDTOUnitTest extends UnitTest {
 	}
 
 	@Test
-	public void testSimpleSerialization() {
+	public void simpleSerialization() {
 
 		Note note = new Note();
 		note.title = "foo";
@@ -56,7 +56,7 @@ public class JSONDTOUnitTest extends UnitTest {
 	}
 
 	@Test
-	public void testListSerialization() {
+	public void listSerialization() {
 
 		Note note1 = new Note();
 		note1.title = "foo";
@@ -73,14 +73,14 @@ public class JSONDTOUnitTest extends UnitTest {
 	}
 
 	@Test(expected = IllegalArgumentException.class)
-	public void testIllegalArgumentForSerialization() {
+	public void illegalArgumentForSerialization() {
 
 		JSONDTOUtil.getDTOsAsString(new Object());
 
 	}
 
 	@Test(expected = IllegalArgumentException.class)
-	public void testIllegalArgumentForListSerialization() {
+	public void illegalArgumentForListSerialization() {
 
 		List list = new ArrayList();
 		list.add(new Object());
@@ -90,21 +90,21 @@ public class JSONDTOUnitTest extends UnitTest {
 	}
 
 	@Test
-	public void testNullSerialization() {
+	public void nullSerialization() {
 
 		assertEquals("null", JSONDTOUtil.getDTOsAsString(null));
 
 	}
 
 	@Test
-	public void testEmptyListSerialization() {
+	public void emptyListSerialization() {
 
 		assertEquals("[]", JSONDTOUtil.getDTOsAsString(new ArrayList()));
 
 	}
 
 	@Test
-	public void testEmptyObjectSerialization() {
+	public void emptyObjectSerialization() {
 
 		class EmptyModel implements JSONDTORepresentable<EmptyModel.DTO> {
 
@@ -127,7 +127,7 @@ public class JSONDTOUnitTest extends UnitTest {
 	}
 
 	@Test
-	public void testReadingInStreams() throws IOException {
+	public void readingInStreams() throws IOException {
 
 		InputStream is = new ByteArrayInputStream("ABC".getBytes(JSONDTOUtil.CHARSET));
 
@@ -136,7 +136,7 @@ public class JSONDTOUnitTest extends UnitTest {
 	}
 
 	@Test
-	public void testReadingEmptyStream() throws IOException {
+	public void readingEmptyStream() throws IOException {
 
 		InputStream is = new ByteArrayInputStream("".getBytes(JSONDTOUtil.CHARSET));
 

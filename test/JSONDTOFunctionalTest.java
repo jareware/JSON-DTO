@@ -114,4 +114,22 @@ public class JSONDTOFunctionalTest extends FunctionalTest {
 
 	}
 
+	/**
+	 * Tests that if the request body doesn't contain an expected field, it'll just show up as being null.
+	 * 
+	 */
+	@Test
+	public void expectedFieldMissing() {
+
+		Response response = POST(RP + "postNote", "application/json", "{\"something\":\"unexpected\"}");
+
+		assertIsOk(response);
+		assertContentType("text/plain", response);
+		assertCharset("utf-8", response);
+		assertContentEquals("title=null;body=", response);
+
+	}
+
+	// TODO: A test with missing required fields..?
+
 }

@@ -103,6 +103,8 @@ public class JSONDTOPlugin extends PlayPlugin {
 	 * Instantiates a DTO object from the previously read request body, and
 	 * injects that to the controller that is expecting it as an argument.
 	 * 
+	 * TODO: Allow binding arrays of JSONDTO's as well..?
+	 * 
 	 */
 	@Override
 	public Object bind(String name, Class clazz, Type type, Annotation[] annotations, Map<String, String[]> params) {
