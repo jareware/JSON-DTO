@@ -82,7 +82,8 @@ not the complete objects.  Here we go:
 	}
 
 By implementing `JSONDTORepresentable` the model object signals that it can represent itself as a DTO if need be.
-We define that representation to be `Note.DTO`, which is just a POJO without any inheritance or annotations magic.
+We define that representation to be `Note.DTO`,
+which is just a [POJO](http://en.wikipedia.org/wiki/Plain_Old_Java_Object) without any inheritance or annotations magic.
 It contains the fields we want to expose within the JSON representation of the Note model.
 We implement it as an inline class to keep these closely related classes together,
 though you can just as well define the implementation of `JSONDTO` as a completely separate class.
@@ -128,7 +129,8 @@ To do the opposite, we implement a `merge(DTO)` as well:
 
 Note that the `url` field is simply ignored since we want it to be read-only.
 
-To make use of the model object and its DTO in a controller, you could do something like:
+To make use of the model object and its DTO in a controller matching to a route `GET /notes/{id} Notes.getNote`,
+you could do something like:
 
 	public static void getNote(Long id) throws Exception {
 
@@ -140,7 +142,10 @@ To make use of the model object and its DTO in a controller, you could do someth
 
 	}
 
-The above controller method could match to a route `GET /notes/{id} Notes.getNote`.
+The response will have `Content-Type: application/json; charset=utf-8` and a body containing:
+
+	{"my_title":"Something","tags":["foo","bar"],"url":"/notes/123"}
+
 Note that we can pass the model object directly to `JSONDTOUtil.renderDTO()`,
 which will know to call `toDTO()` appropriately.
 You can also pass in a list of model objects (that implement `JSONDTORepresentable`):
@@ -155,12 +160,30 @@ You can also pass in a list of model objects (that implement `JSONDTORepresentab
 
 To update a note, one could bind the following method to a route `PUT /notes/{id} Notes.updateNote`:
 
-	public static void updateNote(Long id, Note.DTO noteDTO) throws Exception {
+	public static void updateNote(Long id, Note.DTO noteDTO) {
 
 		Note note = Note.findById(id);
 
 		notFoundIfNull(note);
 
+		note.merge(noteDTO);
+		note.save();
+
+	}
+
+To update the note, `PUT` to this controller method with `Content-Type: "application/json"` and a request body of:
+
+	{"my_title":"Something else","tags":["foobar"]}
+
+Note that we have omitted the `url` field here, but it could just as well have been provided.
+In fact, you can add any additional fields to the body,
+and they won't have an effect on `merge(DTO)` unless you explicitly specify.
+
+Finally, to create a new note, for example with route `POST /notes` and the same request body as above:
+
+	public static void createNote(Note.DTO noteDTO) {
+
+		Note note = new Note();
 		note.merge(noteDTO);
 		note.save();
 
