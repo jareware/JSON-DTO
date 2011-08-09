@@ -1,4 +1,4 @@
-self: play -> jsondto 0.1
+self: play -> jsondto 0.1.0
 
 require:
     - play
