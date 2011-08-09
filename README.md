@@ -112,6 +112,60 @@ Let's look at an implementation of `toDTO()` first:
 
 	}
 
+To do the opposite, we implement a `merge(DTO)` as well:
+
+	@Override
+	public void merge(DTO dto) {
+
+		this.title = dto.my_title;
+
+		for (String tagName : dto.tags) {
+			Tag tag = Tag.find("byName", tagName).first();
+			this.tags.add(tag);
+		}
+
+	}
+
+Note that the `url` field is simply ignored since we want it to be read-only.
+
+To make use of the model object and its DTO in a controller, you could do something like:
+
+	public static void getNote(Long id) throws Exception {
+
+		Note note = Note.findById(id);
+
+		notFoundIfNull(note);
+
+		JSONDTOUtil.renderDTO(note, response);
+
+	}
+
+The above controller method could match to a route `GET /notes/{id} Notes.getNote`.
+Note that we can pass the model object directly to `JSONDTOUtil.renderDTO()`,
+which will know to call `toDTO()` appropriately.
+You can also pass in a list of model objects (that implement `JSONDTORepresentable`):
+
+	public static void getAllNotes() throws Exception {
+
+		List<Note> notes = Note.findAll();
+
+		JSONDTOUtil.renderDTO(notes, response);
+
+	}
+
+To update a note, one could bind the following method to a route `PUT /notes/{id} Notes.updateNote`:
+
+	public static void updateNote(Long id, Note.DTO noteDTO) throws Exception {
+
+		Note note = Note.findById(id);
+
+		notFoundIfNull(note);
+
+		note.merge(noteDTO);
+		note.save();
+
+	}
+
 Running the tests
 -----------------
 
