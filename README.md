@@ -169,9 +169,6 @@ To update a note, one could bind the following method to a route `PUT /notes/{id
 Running the tests
 -----------------
 
-...
-
-See also
---------
-
- 1. XXX
+The JSON-DTO module ships with unit and functional tests.
+To run them, make sure the module is loaded and start Play! with the `test` framework ID.
+The tests `JSONDTOFunctionalTest` and `JSONDTOUnitTest` will appear in the standard test runner UI at http://localhost:9000/@tests.
