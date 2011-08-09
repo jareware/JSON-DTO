@@ -177,7 +177,7 @@ To update the note, `PUT` to this controller method with `Content-Type: "applica
 
 Note that we have omitted the `url` field here, but it could just as well have been provided.
 In fact, you can add any additional fields to the body,
-and they won't have an effect on `merge(DTO)` unless you explicitly specify.
+and they won't have an effect on `merge(DTO)` unless you explicitly specify within that method.
 
 Finally, to create a new note, for example with route `POST /notes` and the same request body as above:
 
