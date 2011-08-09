@@ -6,8 +6,26 @@ Simple plugin and associated conventions for making JSON-DTO binding a breeze wi
 Installation
 ------------
 
-Obtain a copy of the JSON-DTO module and drop it under the `modules/` path of your Play! application.
-That should be it.
+The easiest way to install is to [obtain a copy](https://github.com/jareware/JSON-DTO/zipball/master)
+of the JSON-DTO module and drop it under the `modules/` path of your Play! application.
+
+The above method is deprecated, however, in favor of the new [dependency management system](http://www.playframework.org/documentation/latest/dependency).
+To install the JSON-DTO module as a local module,
+extract a copy of the module to `/path/to/jsondto` and use something like the following in your `dependencies.yml`:
+
+	require:
+	    - play
+	    - jsondto -> jsondto
+
+	repositories:
+
+	    - jsondto:
+	        type: local
+	        artifact: "/path/to/jsondto"
+	        contains:
+	            - jsondto -> jsondto
+
+You should be good to go.
 
 How it works
 ------------
@@ -17,7 +35,7 @@ When building a RESTful JSON API with Play! (or with any web framework for that 
 1. Reading in requests that (may) contain a JSON representation of a model object
 1. Responding to requests with another (possible) such representation
 
-Play! offers [automatic HTTP-POJO-binding](http://www.playframework.org/documentation/1.2.2/controllers#pojo)
+Play! offers [automatic HTTP-POJO-binding](http://www.playframework.org/documentation/latest/controllers#pojo)
 which is great when reading in regular form data, but
 when building an API you often want to be very specific about what to expose.
 You may want to change the public names of fields, or may want to add generated, read-only fields to your
