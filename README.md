@@ -43,12 +43,12 @@ Let's say we're building an API for maintaining a list of notes.  Our model obje
 
 	@Entity
 	public class Note extends Model {
-		
+
 		public String title = "";
-		
+
 		@ManyToMany
 		public List<Tag> tags = new ArrayList<Tag>();
-	
+
 	}
 
 We want to give the Note's JSON representation the aforementioned immutable `url` field,
@@ -57,28 +57,28 @@ not the complete objects.  Here we go:
 
 	@Entity
 	public class Note extends Model implements JSONDTORepresentable<Note.DTO> {
-	
+
 		public String title = "";
-		
+
 		@ManyToMany
 		public List<Tag> tags = new ArrayList<Tag>();
-		
+
 		public class DTO implements JSONDTO {
-			public String title;
+			public String my_title;
 			public List<String> tags;
 			public String url;
 		}
-	
+
 		@Override
 		public void merge(DTO dto) {
 			// TODO
 		}
-	
+
 		@Override
 		public DTO toDTO() {
 			// TODO
 		}
-		
+
 	}
 
 By implementing `JSONDTORepresentable` the model object signals that it can represent itself as a DTO if need be.
@@ -86,6 +86,31 @@ We define that representation to be `Note.DTO`, which is just a POJO without any
 It contains the fields we want to expose within the JSON representation of the Note model.
 We implement it as an inline class to keep these closely related classes together,
 though you can just as well define the implementation of `JSONDTO` as a completely separate class.
+
+Note that the DTO differs from the actual model object - only the DTO has the `url` field,
+while the implicit `id` field of the model object is not exposed via the DTO.
+The `title` field has also been renamed as `my_title`,
+since that is how we want to expose it in our API.
+
+The `JSONDTORepresentable` interface defines two methods, namely `merge(DTO)` and `toDTO()`.
+The former should copy any properties from the DTO to the model object,
+while the latter should do the opposite, that is, produce an instance of `DTO` based on the properties of the model object.
+Let's look at an implementation of `toDTO()` first:
+
+	@Override
+	public DTO toDTO() {
+
+		DTO dto = new DTO();
+		dto.my_title = this.title;
+		dto.url = Router.reverse(/* ... */).url;
+		dto.tags = new ArrayList<String>();
+
+		for (Tag tag : this.tags)
+			dto.tags.add(tag.name);
+
+		return dto;
+
+	}
 
 Running the tests
 -----------------
